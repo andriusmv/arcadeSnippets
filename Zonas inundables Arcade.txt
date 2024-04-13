@@ -1,4 +1,4 @@
-Zonas inundables NO
+// Zonas inundables NO
 
 var inundable10 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T10 de España")))
 
@@ -26,15 +26,15 @@ if (!IsEmpty(inundable10)) {
   }
 }
 
-Referencia catastral
+// Referencia catastral
 
 return Split($feature.gml_id, ".")[3]
 
-Año construcción
+// Año construcción
 
 Year(Date($feature.dateOfConstruction_DateOfEvent_))
 
-Zonas inundables SI
+// Zonas inundables SI
 
 var inundable10 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T10 de España")))
 
