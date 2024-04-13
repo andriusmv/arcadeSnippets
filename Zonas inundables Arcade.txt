@@ -1,0 +1,63 @@
+Zonas inundables NO
+
+var inundable10 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T10 de España")))
+
+if (!IsEmpty(inundable10)) {
+    return ""
+} else {
+  var inundable50 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T50 de España")))
+
+  if (!IsEmpty(inundable50)) {
+      return ""
+  } else {
+      var inundable100 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T100 de España")))
+
+      if (!IsEmpty(inundable100)) {
+          return ""
+      } else {
+          var inundable500 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T500 de España")))
+
+          if (!IsEmpty(inundable500)) {
+              return ""
+          } else {
+              return 'El edificio no está en una zona inundable.'
+          }
+      }
+  }
+}
+
+Referencia catastral
+
+return Split($feature.gml_id, ".")[3]
+
+Año construcción
+
+Year(Date($feature.dateOfConstruction_DateOfEvent_))
+
+Zonas inundables SI
+
+var inundable10 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T10 de España")))
+
+if (!IsEmpty(inundable10)) {
+    return "El edificio se encuentra en una zona inundable de período de retorno 10 años."
+} else {
+  var inundable50 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T50 de España")))
+
+  if (!IsEmpty(inundable50)) {
+      return "El edificio se encuentra en una zona inundable de período de retorno 50 años."
+  } else {
+      var inundable100 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T100 de España")))
+
+      if (!IsEmpty(inundable100)) {
+          return "El edificio se encuentra en una zona inundable de período de retorno 100 años."
+      } else {
+          var inundable500 = First(Intersects($feature,FeatureSetByName($map, "Zonas Inundables T500 de España")))
+
+          if (!IsEmpty(inundable500)) {
+              return "El edificio se encuentra en una zona inundable de período de retorno 500 años."
+          } else {
+              return ''
+          }
+      }
+  }
+}
