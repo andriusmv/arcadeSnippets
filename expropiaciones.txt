@@ -1,0 +1,31 @@
+// Carga todas las parcelas en memoria
+var parcel = FeatureSetByName($map,"Parcelas",['*'],true);
+
+// Carga la expropiacion sobre la que el usuario hace clic
+var expro = Geometry($feature);
+
+// Obtenemos todas las parcelas que intersecan con la expropiación
+var expro_i= Intersects(expro,parcel);
+
+//Contabilizamos el número de parcelas
+var cnt = Count(expro_i);
+var total = 0;
+
+// Inicializamos variables
+var result ='';
+
+if(cnt>0){
+   	 result = 'Expropiaciones a realizar--> '+cnt;
+ for(var ft in expro_i){
+        var ft_expro = Intersection(expro,ft);
+        var area_expro = round(Area(ft_expro,'square-meters'),2);
+        result +=TextFormatting.NewLine+ft.REFCAT+': '+area_expro+ 'm2';
+        total += area_expro;
+   }
+}else{
+    result= 'No hay parcelas afectadas';
+}
+
+var sumatorio = TextFormatting.NewLine+ '------------------------------------------'+TextFormatting.NewLine
+sumatorio += 'Total a expropiar: '+round(total,2)+' m2'
+return result+sumatorio;
