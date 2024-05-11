@@ -1,0 +1,25 @@
+// Colegios existentes en el mapa
+var colegios = FeatureSetByName($map, 'Centros Educativos',['*'],true);
+
+// Capturar la casa de apuestas en la que el usuario hace un clic
+var casaApuestas = $feature ;
+
+// Calcular una zona de influencia de 100 m
+var areaInfluencia = Buffer(casaApuestas, 100, 'meters');
+
+// Analizamos si existe un colegio en ese buffer
+var colegiosAfectados = Intersects(colegios, areaInfluencia);
+
+// Contar el numero de colegios que intesecan con el buffer
+var cnt = Count(colegiosAfectados)
+
+// Conformar el mensaje mostrado en la ventana emergente
+var texto = '';
+
+if(cnt > 0){
+    texto = "No cumple la normativa, hay "+cnt+' Colegios a menos de 100 m'
+}else{
+    texto = "SI cumple la normativa";
+}
+
+return texto
