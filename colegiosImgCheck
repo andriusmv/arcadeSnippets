@@ -1,0 +1,10 @@
+var imgCheck = 'https://cdn-icons-png.flaticon.com/512/1828/1828644.png'
+var imgDontCheck = 'https://pngimage.net/wp-content/uploads/2018/05/bad-png-14.png'
+
+var Colegios = FeatureSetByName($map, "Centros Educativos", ['*'], true)
+
+var AreaInfluencia = Buffer($feature, 100, "meters")
+
+var ColegiosAfectados = Count(Intersects(Colegios, AreaInfluencia))
+
+iif(ColegiosAfectados >0,imgDontCheck,imgCheck)
