@@ -1,0 +1,5 @@
+var ratio = $feature["Sum_Volumen"]/$feature["Población_total"];
+return round(ratio,2)
+
+// Este municipio tiene un volumen de vertido de 14.869.972,00 m3, con una población de 1.130 hab, lo que supone un ratio de 13.159,27 m3/hab
+// Este municipio tiene un volumen de vertido de {Sum_Volumen} m3, con una población de {Población_total} hab, lo que supone un ratio de {expression/expr0} m3/hab
