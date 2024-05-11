@@ -1,0 +1,44 @@
+// Cargamos en memoria las exproiaciones existenes en el mapa
+var expro = FeatureSetByName($map, 'Expropiaciones',['*'],true);
+
+// Cargar en memoria la geometria sobre la que hace clic el usuario
+var parcela = Geometry($feature);
+
+// Interseccion espacial --> en memoria
+var expro_i = Intersects(parcela, expro);
+
+// Contar las geometrias existentes en la interseccion
+var cnt = Count(expro_i);
+
+// Variable con el return --> el texto que se va a devolver en el PopUP
+var result;
+
+// Variable del numero de zonas a expropiar
+var num;
+
+// Verificar si existen o no intersecciones
+if(cnt>0){
+    num += 1;
+    // Ponemos el numero de expropiaciones
+    result = 'Zonas a expropiar: '+cnt;
+    result += TextFormatting.NewLine + '-----------------------'+TextFormatting.NewLine
+    
+    // Recorremos las intersecciones dentro de la parcela
+    for(var ft in expro_i){
+        // Obtenemos la interseccion de ambas geometrias
+        var ft_expro = Intersection(parcela,ft);
+        // Calculamos el area de la interseccion
+        var area_expro = Area(ft_expro,'square-meters');
+        var areaRound = round(area_expro,2);
+        
+        // Completamos la lista de exproaciones devueltas
+        result += 'Expropiación '+ num +':'+ areaRound +'m2'+TextFormatting.NewLine;
+        num +=1;
+        }
+    
+}else{
+    result = 'Parcela no afectada por el proyecto'
+}
+
+// Valor devuelto
+return result;
